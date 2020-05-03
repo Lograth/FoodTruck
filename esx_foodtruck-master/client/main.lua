@@ -605,7 +605,7 @@ Citizen.CreateThread(function()
                 elseif CurrentAction == 'foodtruck_cook' then
                     OpenCookingMenu(CurrentActionData.entity)
 				elseif CurrentAction == 'delete_vehicle' then
-					local playerPed = PlayerPedId() 
+					local playerPed = PlayerPedId(-1) 
 
 					if IsPedInAnyVehicle(playerPed, false) then
 						local vehicle 	= GetVehiclePedIsIn(playerPed, false)
@@ -643,9 +643,11 @@ Citizen.CreateThread(function()
             end
         end
 
-		-- Control Press F6
-        if IsControlJustReleased(0, 167) and PlayerData.job ~= nil and PlayerData.job.name == 'foodtruck' then
-            OpenMobileFoodTruckActionsMenu()
+		-- Control Press F6  
+		if IsControlJustReleased(0, 167) and PlayerData.job ~= nil and PlayerData.job.name == 'foodtruck'   then 
+			if IsPedSittingInAnyVehicle(PlayerPedId(-1)) == false then
+				OpenMobileFoodTruckActionsMenu() 
+			end
         end
     end
 end)
